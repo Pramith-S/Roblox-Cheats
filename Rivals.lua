@@ -31,6 +31,12 @@ local THEME = {
 	onStroke    = Color3.fromRGB(0, 220, 160),
 }
 
+local ROMAN_NUMERALS = { "i", "ii", "iii", "iv", "v", "vi", "vii", "viii", "ix", "x" }
+
+local function romanSection(num, text)
+	return (ROMAN_NUMERALS[num] or tostring(num)) .. ") " .. text
+end
+
 -- ── ESP STATE ────────────────────────────────────────────
 local espEnabled   = false
 local showNames    = true
@@ -122,7 +128,7 @@ local dragSub = Instance.new("TextLabel")
 dragSub.Size = UDim2.new(1, -16, 0, 14)
 dragSub.Position = UDim2.new(0, 12, 0, 28)
 dragSub.BackgroundTransparency = 1
-dragSub.Text = "drag header to move  ·  [Insert] hide menu"
+dragSub.Text = "drag header or hold RShift + arrows to move  ·  [Insert] hide menu"
 dragSub.TextColor3 = THEME.textMuted
 dragSub.Font = Enum.Font.Gotham
 dragSub.TextSize = 10
@@ -245,7 +251,7 @@ local rtxSectionLabel = Instance.new("TextLabel")
 rtxSectionLabel.Size = UDim2.new(1, -40, 0, 18)
 rtxSectionLabel.Position = UDim2.new(0, 20, 0, 8)
 rtxSectionLabel.BackgroundTransparency = 1
-rtxSectionLabel.Text = "▸ GRAPHICS"
+rtxSectionLabel.Text = romanSection(1, "GRAPHICS")
 rtxSectionLabel.TextColor3 = THEME.accentDim
 rtxSectionLabel.Font = Enum.Font.GothamBold
 rtxSectionLabel.TextSize = 11
@@ -339,7 +345,7 @@ local espColorLabel = Instance.new("TextLabel")
 espColorLabel.Size = UDim2.new(1, -40, 0, 18)
 espColorLabel.Position = UDim2.new(0, 20, 0, 84)
 espColorLabel.BackgroundTransparency = 1
-espColorLabel.Text = "▸ ESP COLOR"
+espColorLabel.Text = romanSection(2, "ESP COLOR")
 espColorLabel.TextColor3 = THEME.accentDim
 espColorLabel.Font = Enum.Font.GothamBold
 espColorLabel.TextSize = 11
@@ -400,7 +406,7 @@ local bgColorLabel = Instance.new("TextLabel")
 bgColorLabel.Size = UDim2.new(1, -40, 0, 18)
 bgColorLabel.Position = UDim2.new(0, 20, 0, 148)
 bgColorLabel.BackgroundTransparency = 1
-bgColorLabel.Text = "▸ BACKGROUND COLOR"
+bgColorLabel.Text = romanSection(3, "BACKGROUND COLOR")
 bgColorLabel.TextColor3 = THEME.accentDim
 bgColorLabel.Font = Enum.Font.GothamBold
 bgColorLabel.TextSize = 11
@@ -460,7 +466,7 @@ local aimColorLabel = Instance.new("TextLabel")
 aimColorLabel.Size = UDim2.new(1, -40, 0, 18)
 aimColorLabel.Position = UDim2.new(0, 20, 0, 210)
 aimColorLabel.BackgroundTransparency = 1
-aimColorLabel.Text = "▸ AIM CIRCLE COLOR"
+aimColorLabel.Text = romanSection(4, "AIM CIRCLE COLOR")
 aimColorLabel.TextColor3 = THEME.accentDim
 aimColorLabel.Font = Enum.Font.GothamBold
 aimColorLabel.TextSize = 11
@@ -575,7 +581,7 @@ local aimSectionLabel = Instance.new("TextLabel")
 aimSectionLabel.Size = UDim2.new(1, -40, 0, 18)
 aimSectionLabel.Position = UDim2.new(0, 20, 0, 8)
 aimSectionLabel.BackgroundTransparency = 1
-aimSectionLabel.Text = "▸ AIMBOT"
+aimSectionLabel.Text = romanSection(1, "AIMBOT")
 aimSectionLabel.TextColor3 = THEME.accentDim
 aimSectionLabel.Font = Enum.Font.GothamBold
 aimSectionLabel.TextSize = 11
@@ -606,7 +612,7 @@ local fovSectionLabel = Instance.new("TextLabel")
 fovSectionLabel.Size = UDim2.new(1, -40, 0, 18)
 fovSectionLabel.Position = UDim2.new(0, 20, 0, 86)
 fovSectionLabel.BackgroundTransparency = 1
-fovSectionLabel.Text = "FOV RADIUS  ( " .. aimbotFov .. " px )"
+fovSectionLabel.Text = romanSection(2, "FOV RADIUS  ( " .. aimbotFov .. " px )")
 fovSectionLabel.TextColor3 = THEME.accentDim
 fovSectionLabel.Font = Enum.Font.GothamBold
 fovSectionLabel.TextSize = 11
@@ -650,7 +656,7 @@ local smoothSectionLabel = Instance.new("TextLabel")
 smoothSectionLabel.Size = UDim2.new(1, -40, 0, 18)
 smoothSectionLabel.Position = UDim2.new(0, 20, 0, 140)
 smoothSectionLabel.BackgroundTransparency = 1
-smoothSectionLabel.Text = "SMOOTH  ( " .. math.floor(aimbotSmooth * 100) .. "% )"
+smoothSectionLabel.Text = romanSection(3, "SMOOTH  ( " .. math.floor(aimbotSmooth * 100) .. "% )")
 smoothSectionLabel.TextColor3 = THEME.accentDim
 smoothSectionLabel.Font = Enum.Font.GothamBold
 smoothSectionLabel.TextSize = 11
@@ -694,7 +700,7 @@ local distSectionLabel = Instance.new("TextLabel")
 distSectionLabel.Size = UDim2.new(1, -40, 0, 18)
 distSectionLabel.Position = UDim2.new(0, 20, 0, 194)
 distSectionLabel.BackgroundTransparency = 1
-distSectionLabel.Text = "MAX DISTANCE  ( " .. aimbotMaxDist .. " studs )"
+distSectionLabel.Text = romanSection(4, "MAX DISTANCE  ( " .. aimbotMaxDist .. " studs )")
 distSectionLabel.TextColor3 = THEME.accentDim
 distSectionLabel.Font = Enum.Font.GothamBold
 distSectionLabel.TextSize = 11
@@ -817,19 +823,19 @@ UserInputService.InputChanged:Connect(function(i)
 		fovKnob.Position = UDim2.new(t, -10, 0.5, -10)
 		fovFill.Size     = UDim2.new(t, 0, 1, 0)
 		fovCircle.Size   = UDim2.new(0, aimbotFov * 2, 0, aimbotFov * 2)
-		fovSectionLabel.Text = "FOV RADIUS  ( " .. aimbotFov .. " px )"
+		fovSectionLabel.Text = romanSection(2, "FOV RADIUS  ( " .. aimbotFov .. " px )")
 	elseif draggingSmooth then
 		local t = trackT(smoothTrack, i.Position.X)
 		aimbotSmooth = t
 		smoothKnob.Position = UDim2.new(t, -10, 0.5, -10)
 		smoothFill.Size     = UDim2.new(t, 0, 1, 0)
-		smoothSectionLabel.Text = "SMOOTH  ( " .. math.floor(t * 100) .. "% )"
+		smoothSectionLabel.Text = romanSection(3, "SMOOTH  ( " .. math.floor(t * 100) .. "% )")
 	elseif draggingDist then
 		local t = trackT(distTrack, i.Position.X)
 		aimbotMaxDist = math.floor(10 + t * 490)  -- 10 to 500 studs
 		distKnob.Position = UDim2.new(t, -10, 0.5, -10)
 		distFill.Size     = UDim2.new(t, 0, 1, 0)
-		distSectionLabel.Text = "MAX DISTANCE  ( " .. aimbotMaxDist .. " studs )"
+		distSectionLabel.Text = romanSection(4, "MAX DISTANCE  ( " .. aimbotMaxDist .. " studs )")
 	end
 end)
 
@@ -981,12 +987,12 @@ local function makeToggle(parent, yPos, labelText, defaultState, callback)
 	end)
 end
 
-local function makeSection(parent, yPos, text)
+local function makeSection(parent, yPos, sectionNum, text)
 	local sep = Instance.new("TextLabel")
 	sep.Size = UDim2.new(1, -40, 0, 18)
 	sep.Position = UDim2.new(0, 20, 0, yPos)
 	sep.BackgroundTransparency = 1
-	sep.Text = "▸ " .. text
+	sep.Text = romanSection(sectionNum, text)
 	sep.TextColor3 = THEME.accentDim
 	sep.Font = Enum.Font.GothamBold
 	sep.TextSize = 11
@@ -1014,7 +1020,7 @@ espToggleStroke.Color = THEME.borderDim
 espToggleStroke.Thickness = 1
 espToggleStroke.Parent = espToggleBtn
 
-makeSection(espScroll, 62, "DISPLAY OPTIONS")
+makeSection(espScroll, 62, 1, "DISPLAY OPTIONS")
 makeToggle(espScroll, 82,  "Show Names",    showNames,    function(v) showNames    = v end)
 makeToggle(espScroll, 120, "Show Health",   showHealth,   function(v) showHealth   = v end)
 makeToggle(espScroll, 158, "Show Distance", showDistance, function(v) showDistance = v end)
@@ -1035,7 +1041,7 @@ makeToggle(espScroll, 234, "Box ESP",       showBoxESP,   function(v)
 	end
 end)
 
-makeSection(espScroll, 316, "ESP RANGE")
+makeSection(espScroll, 316, 2, "ESP RANGE")
 
 local espDistLabel = Instance.new("TextLabel")
 espDistLabel.Size = UDim2.new(1, -40, 0, 14)
@@ -1080,7 +1086,7 @@ espDistKnobStroke.Thickness = 2
 espDistKnobStroke.Transparency = 0.5
 espDistKnobStroke.Parent = espDistKnob
 
-makeSection(espScroll, 382, "INFO")
+makeSection(espScroll, 382, 3, "INFO")
 
 local infoLabel = Instance.new("TextLabel")
 infoLabel.Size = UDim2.new(1, -40, 0, 36)
@@ -1307,9 +1313,9 @@ end)
 local function setEspVisual(on)
 	if on then
 		espToggleBtn.Text       = "ESP  ON  [L]"
-		espToggleBtn.TextColor3 = espColor
+		espToggleBtn.TextColor3 = THEME.accentGlow
 		TweenService:Create(espToggleBtn,    TweenInfo.new(0.15), { BackgroundColor3 = THEME.onBg }):Play()
-		TweenService:Create(espToggleStroke, TweenInfo.new(0.15), { Color = espColor }):Play()
+		TweenService:Create(espToggleStroke, TweenInfo.new(0.15), { Color = THEME.onStroke }):Play()
 	else
 		espToggleBtn.Text       = "ESP  OFF  [L]"
 		espToggleBtn.TextColor3 = THEME.textDim
@@ -1372,11 +1378,6 @@ local function updateEspColor(hue)
 	knob.BackgroundColor3 = col
 	hexLabel.Text         = toHex(col)
 	espColor              = col
-	if espEnabled then
-		espToggleBtn.TextColor3 = col
-		espToggleStroke.Color   = col
-		espToggleBtn.Text       = "ESP  ON  [L]"
-	end
 	for _, data in pairs(espObjects) do
 		data.nameLabel.TextColor3 = col
 		if data.highlight and data.highlight.Parent then
@@ -1420,6 +1421,34 @@ dragBar.InputBegan:Connect(function(input)
 		dragStartMouse = Vector2.new(input.Position.X, input.Position.Y)
 		dragStartPos   = bgBox.Position
 	end
+end)
+
+-- ── KEYBOARD WINDOW MOVE (RShift + arrows) ───────────────
+local KEY_MOVE_SPEED = 360
+local KEY_MOVE_DIRS = {
+	[Enum.KeyCode.Up]    = Vector2.new(0, -1),
+	[Enum.KeyCode.Down]  = Vector2.new(0, 1),
+	[Enum.KeyCode.Left]  = Vector2.new(-1, 0),
+	[Enum.KeyCode.Right] = Vector2.new(1, 0),
+}
+
+RunService.RenderStepped:Connect(function(dt)
+	if not bgBox.Visible then return end
+	if not UserInputService:IsKeyDown(Enum.KeyCode.RightShift) then return end
+
+	local moveDir = Vector2.zero
+	for key, dir in pairs(KEY_MOVE_DIRS) do
+		if UserInputService:IsKeyDown(key) then
+			moveDir += dir
+		end
+	end
+	if moveDir.Magnitude == 0 then return end
+
+	moveDir = moveDir.Unit * KEY_MOVE_SPEED * dt
+	bgBox.Position = UDim2.new(
+		bgBox.Position.X.Scale, bgBox.Position.X.Offset + moveDir.X,
+		bgBox.Position.Y.Scale, bgBox.Position.Y.Offset + moveDir.Y
+	)
 end)
 
 -- ── DRAG SLIDERS ──────────────────────────────────────────
